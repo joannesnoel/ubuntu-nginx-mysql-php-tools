@@ -1,5 +1,7 @@
 #!/bin/bash
 
+. ../setup-user/setup.sh
+
 domain=$1
 user=$2
 root="/home/$user/$domain/public"
@@ -27,6 +29,24 @@ server {
         }
 }
 
+server {
+
+        root /home/$user/$domain/public;
+        index index.php index.html index.htm;
+
+        server_name $domain www.$domain;
+
+        location / {
+                try_files $uri $uri/ /index.php?$args;
+        }
+
+        location ~ \.php$ {
+                include snippets/fastcgi-php.conf;
+                fastcgi_pass unix:/run/php/php7.4-fpm-$user.sock;
+        }
+
+}
+
 
 EOF
 
@@ -35,3 +55,5 @@ sudo ln -s $block /etc/nginx/sites-enabled/
 
 # Test configuration and reload if successful
 sudo nginx -t && sudo service nginx reload
+
+. ../setup-database/setup.sh
