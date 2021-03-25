@@ -15,19 +15,6 @@ sudo chown -R $user:$user $root
 
 # Create the Nginx server block file:
 sudo tee $block > /dev/null <<EOF
-server {
-        listen 80;
-        listen [::]:80;
-
-        root /var/www/$domain/html;
-        index index.html index.htm;
-
-        server_name $domain www.$domain;
-
-        location / {
-                try_files $uri $uri/ =404;
-        }
-}
 
 server {
 
@@ -37,7 +24,7 @@ server {
         server_name $domain www.$domain;
 
         location / {
-                try_files $uri $uri/ /index.php?$args;
+                try_files \$uri \$uri/ /index.php?$args;
         }
 
         location ~ \.php$ {
