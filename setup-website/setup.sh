@@ -54,8 +54,8 @@ group = $user
 
 listen = /run/php/php7.4-fpm-$user.sock
 
-listen.owner = www-data
-listen.group = www-data
+listen.owner = $user
+listen.group = $user
 
 pm = dynamic
 pm.max_children = 5
