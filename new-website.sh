@@ -1,9 +1,9 @@
 #!/bin/bash
+adduser $1
+usermod -aG sudo $1
 
-. ../setup-user/setup.sh
-
-domain=$1
-user=$2
+user=$1
+domain=$2
 root="/home/$user/$domain/public"
 nginx_file="/etc/nginx/sites-available/$domain"
 php_fpm_file="/etc/php/7.4/fpm/pool.d/$user.conf"
@@ -64,5 +64,3 @@ pm.min_spare_servers = 1
 pm.max_spare_servers = 3
 
 EOF
-
-. ../setup-database/setup.sh
