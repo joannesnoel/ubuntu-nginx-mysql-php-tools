@@ -1,6 +1,6 @@
 #!/bin/bash
-# adduser $1
-# usermod -aG sudo $1
+adduser $1
+usermod -aG sudo $1
 
 user=$1
 domain=$2
